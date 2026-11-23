@@ -1,0 +1,37 @@
+{
+  "name": "tiktok-shop-mcp-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) Server for TikTok, TikTok Shop, No-Watermark Video Intelligence, Comments, Subtitles, Audio Beat-Sync & CapCut Templates across 22+ countries.",
+  "main": "index.js",
+  "bin": {
+    "tiktok-shop-mcp-server": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test_mcp.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "tiktok",
+    "tiktok-api",
+    "tiktok-shop",
+    "tiktok-scraper",
+    "capcut",
+    "claude-desktop",
+    "cursor",
+    "ai-agents",
+    "rapidapi"
+  ],
+  "author": "Techssss",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Techssss/tiktok-scraper-api-tiktok-shop-no-watermark.git"
+  },
+  "homepage": "https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
