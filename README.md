@@ -31,9 +31,21 @@ Add your free `RAPIDAPI_KEY` from **[RapidAPI Hub](https://rapidapi.com/Techssss
 
 ---
 
-## ⚡ Quick Setup for Google Antigravity, OpenAI Codex, Claude Desktop, Cursor & Windsurf
+## ⚡ Quick Setup for Google Antigravity, OpenAI Codex, Claude, Cursor & Arcade.dev
 
-### 1. Clone & Test Locally (Zero External Dependencies — Pure Node.js `>=18`)
+### Option A: Zero-Install Remote Streamable HTTP MCP Server (Instant Cloud URL)
+No local clone required! Connect any Remote MCP client (**Arcade.dev, Smithery, Claude Web, OpenAI Agents SDK, Cursor Remote MCP**) directly to our Cloudflare Edge MCP endpoint:
+- **Server ID:** `tiktok-shop-mcp`
+- **Remote MCP URI (Streamable HTTP JSON-RPC 2.0):**
+  ```text
+  https://tiktok-scraper-api.minhnghiathcstp.workers.dev/mcp
+  ```
+- **Optional Header (for the 8 Global Cloud Tools):**
+  ```text
+  X-RapidAPI-Key: YOUR_FREE_RAPIDAPI_KEY
+  ```
+
+### Option B: Local Stdio MCP Server (Zero External Dependencies — Pure Node.js `>=18`)
 ```bash
 git clone https://github.com/Techssss/tiktok-scraper-api-tiktok-shop-no-watermark.git
 cd tiktok-scraper-api-tiktok-shop-no-watermark
