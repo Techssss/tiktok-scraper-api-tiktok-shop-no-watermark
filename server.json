@@ -1,0 +1,42 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.techssss/tiktok-shop-capcut-mcp-server",
+  "description": "40-Endpoint TikTok, TikTok Shop (OEC/Affiliate/Live), Whisper VTT, StrongBeat & CapCut 9e2c MCP Server across 22+ countries.",
+  "version": "2.0.0",
+  "repository": {
+    "url": "https://github.com/Techssss/tiktok-scraper-api-tiktok-shop-no-watermark",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://tiktok-scraper-api.minhnghiathcstp.workers.dev/mcp",
+      "headers": [
+        {
+          "name": "X-RapidAPI-Key",
+          "description": "Optional Free RapidAPI Key from https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video (3 tools run 100% free without a key)",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "tiktok-shop-mcp-server",
+      "version": "2.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "RAPIDAPI_KEY",
+          "description": "Free RapidAPI Key from https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 {
   "name": "tiktok-shop-mcp-server",
-  "version": "1.0.0",
-  "description": "Model Context Protocol (MCP) Server for Google Antigravity, OpenAI Codex, Claude Desktop, Cursor & Windsurf: TikTok, TikTok Shop, No-Watermark Video Intelligence, Comments, Subtitles, Audio Beat-Sync & CapCut Templates across 22+ countries.",
+  "version": "2.0.0",
+  "mcpName": "io.github.techssss/tiktok-shop-capcut-mcp-server",
+  "description": "Model Context Protocol (MCP) Server v2.0.0 (15 Tools, 40 Endpoints, MCP Behavioral Annotations) for Google Antigravity, OpenAI Codex, Claude Desktop, Cursor & Windsurf: TikTok, TikTok Shop, No-Watermark Video, VQScore Algorithm Audit, Whisper VTT, StrongBeat & CapCut 9e2c Templates across 22+ countries.",
   "main": "index.js",
   "bin": {
     "tiktok-shop-mcp-server": "./index.js"

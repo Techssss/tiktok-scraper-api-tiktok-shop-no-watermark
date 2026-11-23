@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok, TikTok Shop & CapCut 9e2c Global API + MCP Server v2.0 Playground</title>
+  <meta name="description" content="Interactive Playground for 40 TikTok, TikTok Shop (OEC/Affiliate/Live), Whisper VTT, StrongBeat & CapCut 9e2c Endpoints + 15-Tool Model Context Protocol (MCP) Server." />
+  <style>
+    :root {
+      --bg: #0b0d13;
+      --card: #131722;
+      --border: #252b3d;
+      --accent: #fe2c55;
+      --cyan: #25f4ee;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem 4rem;
+    }
+    .container { max-width: 1120px; margin: 0 auto; }
+    .hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: linear-gradient(135deg, rgba(254,44,85,0.12), rgba(37,244,238,0.1));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(37,244,238,0.15);
+      color: var(--cyan);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.3rem 0.85rem;
+      border-radius: 99px;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+    h1 { font-size: 2rem; margin-bottom: 0.75rem; }
+    .subtitle { color: var(--muted); max-width: 780px; margin: 0 auto 1.5rem; }
+    .btn-row { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.35rem;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: transform 0.15s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-cyan { background: var(--cyan); color: #0b0d13; }
+    .btn-outline { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem;
+    }
+    .card h2 { font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--cyan); }
+    .card p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1rem; }
+    label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.3rem; }
+    input, select {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      background: #0b0d13;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+    pre {
+      background: #07080c;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      color: #a5f3fc;
+      max-height: 280px;
+      margin-top: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <span class="badge">v4.0 API (40 ENDPOINTS) • MCP SERVER v2.0 (15 TOOLS)</span>
+      <h1>TikTok, TikTok Shop & CapCut 9e2c Intelligence Suite</h1>
+      <p class="subtitle">
+        Real-time No-Watermark HD Video, VQScore Algorithm Audit, Whisper ASR Subtitles, Glide v3.2 Translation,
+        StrongBeat Drum Onsets, CapCut 9e2c Editable NLE Draft Templates & TikTok Shop Forensics across 22+ countries.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video" target="_blank">🔑 Get Free RapidAPI Key (40 Endpoints)</a>
+        <a class="btn btn-cyan" href="https://tiktok-scraper-api.minhnghiathcstp.workers.dev/mcp" target="_blank">⚡ Live Remote MCP (/mcp)</a>
+        <a class="btn btn-outline" href="https://github.com/Techssss/tiktok-scraper-api-tiktok-shop-no-watermark" target="_blank">⭐ GitHub Repository</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>1. 64-Bit Snowflake Timestamp Forensics (Free)</h2>
+        <p>Decode any TikTok Video, User, Seller, Live Room, or CapCut Template ID into its exact UTC creation timestamp (`id >> 32`).</p>
+        <label>TikTok / CapCut 64-Bit ID</label>
+        <input id="sfInput" value="7708707570608835861" />
+        <button class="btn btn-cyan" onclick="runSnowflake()">Decode Snowflake ID</button>
+        <pre id="sfOut">Click "Decode Snowflake ID" to inspect bitshift timestamp...</pre>
+      </div>
+
+      <div class="card">
+        <h2>2. Native TikTok Shop Conversion Deep-Links (Free)</h2>
+        <p>Generate `aweme://ec/store` Storefront #1 Product Pinning (`decorate_insert_items`), Direct SKU Popup, and `type: 35` Video Cart Anchor JSON.</p>
+        <label>TikTok Shop Product ID</label>
+        <input id="pidInput" value="1735171805700392934" />
+        <label>Seller ID (Optional for Storefront #1 Pin)</label>
+        <input id="sidInput" value="7496284048136506342" />
+        <button class="btn btn-cyan" onclick="runDeeplink()">Generate 16 Native Deep-Links</button>
+        <pre id="dlOut">Click "Generate 16 Native Deep-Links"...</pre>
+      </div>
+
+      <div class="card">
+        <h2>3. Live Remote MCP Server Inspector (`/mcp`)</h2>
+        <p>Query the live Cloudflare Edge Streamable HTTP MCP Server (`tools/list` with MCP 2025/2026 Behavioral Annotations).</p>
+        <label>JSON-RPC 2.0 Method</label>
+        <select id="mcpMethod">
+          <option value="tools/list">tools/list (15 Annotated Tools)</option>
+          <option value="prompts/list">prompts/list (4 Agent Workflows)</option>
+          <option value="resources/list">resources/list (3 Knowledge Docs)</option>
+        </select>
+        <button class="btn btn-primary" onclick="runMcpInspect()">Query Live Remote MCP</button>
+        <pre id="mcpOut">Click "Query Live Remote MCP"...</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function runSnowflake() {
+      const raw = document.getElementById("sfInput").value.trim();
+      try {
+        const big = BigInt(raw);
+        const tsSec = Number(big >> 32n);
+        const low32 = Number(big & 0xffffffffn);
+        const out = {
+          ok: true,
+          id: raw,
+          unix_timestamp_sec: tsSec,
+          created_iso_utc: new Date(tsSec * 1000).toISOString(),
+          age_days: Number(((Date.now() - tsSec * 1000) / 86400000).toFixed(1)),
+          datacenter_worker_shard: (low32 >>> 12) & 0x3ff,
+          sequence_counter: low32 & 0xfff
+        };
+        document.getElementById("sfOut").textContent = JSON.stringify(out, null, 2);
+      } catch (e) {
+        document.getElementById("sfOut").textContent = "Invalid 64-bit numeric ID";
+      }
+    }
+
+    function runDeeplink() {
+      const pid = document.getElementById("pidInput").value.trim();
+      const sid = document.getElementById("sidInput").value.trim();
+      const cp = encodeURIComponent(JSON.stringify({ custom_id_type: 0, decorate_insert_items: [pid] }));
+      const out = {
+        ok: true,
+        product_id: pid,
+        seller_id: sid,
+        storefront_pin_product_top1: `aweme://ec/store?custom_params=${cp}&sellerId=${sid}&store_page_version=3&url_maker=shop_schema_sdk`,
+        direct_sku_picker_popup: `aweme://ec/sku?product_id=${pid}&url_maker=shop_schema_sdk`,
+        one_click_order_submit_v2: `aweme://ec/order_submit_v2?product_id=${pid}&url_maker=shop_schema_sdk`,
+        universal_web_pdp: `https://shop.tiktok.com/view/product/${pid}?region=VN`
+      };
+      document.getElementById("dlOut").textContent = JSON.stringify(out, null, 2);
+    }
+
+    async function runMcpInspect() {
+      const method = document.getElementById("mcpMethod").value;
+      const pre = document.getElementById("mcpOut");
+      pre.textContent = "Calling https://tiktok-scraper-api.minhnghiathcstp.workers.dev/mcp ...";
+      try {
+        const r = await fetch("https://tiktok-scraper-api.minhnghiathcstp.workers.dev/mcp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params: {} })
+        });
+        const j = await r.json();
+        pre.textContent = JSON.stringify(j, null, 2);
+      } catch (e) {
+        pre.textContent = "Error: " + e.message;
+      }
+    }
+
+    runSnowflake();
+    runDeeplink();
+  </script>
+</body>
+</html>

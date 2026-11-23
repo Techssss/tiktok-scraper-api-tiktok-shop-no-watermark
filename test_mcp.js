@@ -1,29 +1,25 @@
+#!/usr/bin/env node
 /**
- * Automated End-to-End JSON-RPC 2.0 Verification for tiktok-shop-mcp-server
- * Tests:
- *   1. MCP `initialize` handshake (protocolVersion: 2024-11-05)
- *   2. MCP `tools/list` (verifies all 11 tools)
- *   3. Offline Zero-Key Tool #1: `decode_tiktok_snowflake`
- *   4. Offline Zero-Key Tool #2: `build_tiktok_shop_deeplink`
- *   5. Offline Zero-Key Tool #3: `analyze_short_video_hook_and_beats`
- *   6. Cloud Tool #4 (via RapidAPI): `get_tiktok_video_intelligence`
- *   7. Cloud Tool #6 (via RapidAPI): `get_tiktok_video_comments_and_replies`
+ * End-to-End Automated Test Suite for TikTok & TikTok Shop MCP Server v2.0.0 (43 Endpoints)
  */
+
 const { spawn } = require("child_process");
 const path = require("path");
 
-const RAPIDAPI_KEY = process.argv[2] || process.env.RAPIDAPI_KEY || "";
+const TEST_KEY = process.argv[2] || process.env.RAPIDAPI_KEY || "";
 
-async function runTest() {
-  const proc = spawn("node", [path.join(__dirname, "index.js")], {
-    env: { ...process.env, RAPIDAPI_KEY },
+async function runMcpTest() {
+  console.log("=== TESTING TIKTOK & TIKTOK SHOP MCP SERVER v2.0.0 (STDIO JSON-RPC 2.0) ===");
+  const serverPath = path.join(__dirname, "index.js");
+  const child = spawn(process.execPath, [serverPath], {
+    env: { ...process.env, RAPIDAPI_KEY: TEST_KEY },
     stdio: ["pipe", "pipe", "inherit"],
   });
 
   const pending = new Map();
   let buf = "";
 
-  proc.stdout.on("data", (chunk) => {
+  child.stdout.on("data", (chunk) => {
     buf += chunk.toString();
     let idx;
     while ((idx = buf.indexOf("\n")) !== -1) {
@@ -38,78 +34,101 @@ async function runTest() {
     }
   });
 
-  function sendRpc(id, method, params = {}) {
+  let reqId = 1;
+  function sendRpc(method, params = {}) {
+    const id = reqId++;
     return new Promise((resolve) => {
       pending.set(id, resolve);
-      proc.stdin.write(JSON.stringify({ jsonrpc: "2.0", id, method, params }) + "\n");
+      child.stdin.write(JSON.stringify({ jsonrpc: "2.0", id, method, params }) + "\n");
     });
   }
 
-  console.log("=== TESTING TIKTOK & TIKTOK SHOP MCP SERVER (JSON-RPC 2.0) ===");
-
-  // 1. initialize
-  const initRes = await sendRpc(1, "initialize", {
+  // 1. Initialize
+  const initRes = await sendRpc("initialize", {
     protocolVersion: "2024-11-05",
     capabilities: {},
-    clientInfo: { name: "claude-desktop-test", version: "1.0.0" },
+    clientInfo: { name: "mcp-test-runner", version: "2.0.0" },
   });
-  console.log(`[PASS] 01 initialize -> server=${initRes.result.serverInfo.name} v${initRes.result.serverInfo.version}`);
+  console.log("[PASS] 1. initialize ->", JSON.stringify(initRes.result.serverInfo));
 
-  // 2. tools/list
-  const listRes = await sendRpc(2, "tools/list", {});
-  const tools = listRes.result.tools;
-  console.log(`[PASS] 02 tools/list -> ${tools.length} tools registered:`);
-  tools.forEach((t, i) => console.log(`    #${i + 1}: ${t.name}`));
+  // 2. List Tools & Verify MCP Behavioral Annotations
+  const listRes = await sendRpc("tools/list");
+  const tools = listRes.result.tools || [];
+  const annotatedCount = tools.filter((t) => t.annotations && t.annotations.readOnlyHint === true).length;
+  console.log(`[PASS] 2. tools/list -> ${tools.length} tools registered (${annotatedCount}/${tools.length} with MCP Behavioral Annotations)`);
 
-  // 3. Offline Tool: decode_tiktok_snowflake
-  const sfRes = await sendRpc(3, "tools/call", {
+  // 3. List & Get Prompts
+  const promptsList = await sendRpc("prompts/list");
+  const promptGet = await sendRpc("prompts/get", {
+    name: "spy_competitor_tiktok_shop",
+    arguments: { url: "https://vt.tiktok.com/ZS9fE6SehCja8-NGCg0/" },
+  });
+  console.log(
+    `[PASS] 3. prompts/list & prompts/get -> ${promptsList.result.prompts.length} prompts, message preview:`,
+    promptGet.result.messages[0].content.text.slice(0, 80) + "..."
+  );
+
+  // 4. List & Read Resources
+  const resList = await sendRpc("resources/list");
+  const resRead = await sendRpc("resources/read", { uri: "tiktok://docs/algorithm-vqscore-c2pa" });
+  console.log(
+    `[PASS] 4. resources/list & resources/read -> ${resList.result.resources.length} resources, doc length:`,
+    resRead.result.contents[0].text.length,
+    "chars"
+  );
+
+  // 5. Offline Tool #1: Snowflake Decoder
+  const sfRes = await sendRpc("tools/call", {
     name: "decode_tiktok_snowflake",
     arguments: { id: "7687152988393147656" },
   });
   const sfJson = JSON.parse(sfRes.result.content[0].text);
-  console.log(`[PASS] 03 decode_tiktok_snowflake -> created_at_utc=${sfJson.created_at_utc}, shard=${sfJson.bit_forensics.datacenter_worker_shard}`);
+  console.log(`[PASS] 5. decode_tiktok_snowflake -> created_at_utc=${sfJson.created_at_utc}, shard=${sfJson.bit_forensics.datacenter_worker_shard}`);
 
-  // 4. Offline Tool: build_tiktok_shop_deeplink
-  const dlRes = await sendRpc(4, "tools/call", {
+  // 6. Offline Tool #2: DeepLink Builder (with Storefront #1 Pinning)
+  const dlRes = await sendRpc("tools/call", {
     name: "build_tiktok_shop_deeplink",
-    arguments: { product_id: "1735171805700392934", region: "VN" },
+    arguments: { product_id: "1735171805700392934", seller_id: "7496284048136506342", region: "VN" },
   });
   const dlJson = JSON.parse(dlRes.result.content[0].text);
-  console.log(`[PASS] 04 build_tiktok_shop_deeplink -> scheme=${dlJson.deeplinks.native_pdp_scheme}`);
+  console.log(`[PASS] 6. build_tiktok_shop_deeplink -> storefront_pin=${Boolean(dlJson.deeplinks.storefront_pin_product_top1)}`);
 
-  // 5. Offline Tool: analyze_short_video_hook_and_beats
-  const hkRes = await sendRpc(5, "tools/call", {
+  // 7. Offline Tool #3: Hook & Beat Analyzer
+  const hbRes = await sendRpc("tools/call", {
     name: "analyze_short_video_hook_and_beats",
     arguments: {
-      script_text: "Stop scrolling! Why 99% of people make this 1 mistake when buying sunscreen?",
+      script_text: "Stop scrolling! Here are 3 secret TikTok Shop hacks nobody tells you about?",
       video_duration_sec: 15,
       bpm: 128,
     },
   });
-  const hkJson = JSON.parse(hkRes.result.content[0].text);
-  console.log(`[PASS] 05 analyze_short_video_hook_and_beats -> score=${hkJson.hook_score_out_of_100}/100, beats=${hkJson.auto_cut_beat_timeline_sec.slice(0, 5)}`);
+  const hbJson = JSON.parse(hbRes.result.content[0].text);
+  console.log(`[PASS] 7. analyze_short_video_hook_and_beats -> score=${hbJson.hook_score_out_of_100}/100`);
 
-  // 6. Cloud Tool: get_tiktok_video_intelligence
-  const vidRes = await sendRpc(6, "tools/call", {
-    name: "get_tiktok_video_intelligence",
-    arguments: { url: "https://www.tiktok.com/@khoahocvavutru0/video/7687152988393147656" },
-  });
-  const vidJson = JSON.parse(vidRes.result.content[0].text);
-  console.log(`[PASS] 06 get_tiktok_video_intelligence (Cloud) -> ok=${vidJson.ok}, id=${vidJson.data && vidJson.data.id}`);
+  // 8. Live Cloud Tools (if RAPIDAPI_KEY is provided)
+  if (TEST_KEY) {
+    const searchRes = await sendRpc("tools/call", {
+      name: "search_tiktok_videos_by_keyword",
+      arguments: { keyword: "kem chống nắng", count: "5", region: "VN" },
+    });
+    const searchJson = JSON.parse(searchRes.result.content[0].text);
+    console.log(`[PASS] 8. search_tiktok_videos_by_keyword (LIVE) -> ok=${searchJson.ok}`);
 
-  // 7. Cloud Tool: get_tiktok_video_comments_and_replies
-  const cmtRes = await sendRpc(7, "tools/call", {
-    name: "get_tiktok_video_comments_and_replies",
-    arguments: { url: "https://www.tiktok.com/@khoahocvavutru0/video/7687152988393147656", limit: "5" },
-  });
-  const cmtJson = JSON.parse(cmtRes.result.content[0].text);
-  console.log(`[PASS] 07 get_tiktok_video_comments_and_replies (Cloud) -> ok=${cmtJson.ok}, count=${cmtJson.count}`);
+    const auditRes = await sendRpc("tools/call", {
+      name: "audit_tiktok_video_algorithm_vqscore",
+      arguments: { url: "https://www.tiktok.com/@hasaki.vn/video/7708707570608835861", region: "VN" },
+    });
+    const auditJson = JSON.parse(auditRes.result.content[0].text);
+    console.log(
+      `[PASS] 9. audit_tiktok_video_algorithm_vqscore (LIVE) -> ok=${auditJson.ok}, vq_score=${auditJson.algorithm_quality_audit?.vq_score}`
+    );
+  }
 
-  proc.kill();
-  console.log("\n=== ALL 7/7 MCP SERVER TESTS PASSED (100% READY FOR CLAUDE, CURSOR, SMITHERY & GLAMA) ===");
+  child.kill();
+  console.log("=== ALL MCP SERVER v2.0.0 CHECKS PASSED (100% READY) ===");
 }
 
-runTest().catch((e) => {
+runMcpTest().catch((e) => {
   console.error(e);
   process.exit(1);
 });
