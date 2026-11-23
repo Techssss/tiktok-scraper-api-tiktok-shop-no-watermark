@@ -1,10 +1,10 @@
-# TikTok & TikTok Shop MCP Server + 35-Endpoint Global API (No-Watermark Video, Comments, Subtitles, Beat-Sync & CapCut Templates)
+# TikTok & TikTok Shop MCP Server for Google Antigravity, OpenAI Codex, Claude & Cursor (35-Endpoint Global API)
 
 [![RapidAPI](https://img.shields.io/badge/RapidAPI-TikTok%20%26%20TikTok%20Shop%20Global%20API-0055FF?style=for-the-badge&logo=rapidapi)](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)
-[![MCP Server](https://img.shields.io/badge/MCP-Model%20Context%20Protocol%202024--11--05-7C3AED?style=for-the-badge)](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)
+[![MCP Server](https://img.shields.io/badge/MCP-Antigravity%20%7C%20Codex%20%7C%20Claude%20%7C%20Cursor-7C3AED?style=for-the-badge)](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)
 [![Service Level](https://img.shields.io/badge/Service%20Level-100%25-00C853?style=for-the-badge)](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)
 
-An **open-source Model Context Protocol (MCP) Server** and **Python / Node.js SDK** for **Claude Desktop, Cursor, Windsurf, VS Code Copilot, Smithery.ai, and Glama.ai**, powered by our **35-Endpoint Global Multi-Country TikTok & TikTok Shop Edge Engine** (`22+ Regions`: `US`, `UK`, `VN`, `ID`, `TH`, `BR`, `MY`, `PH`, `SG`, `JP`, `KR`, `DE`, `FR`, `ES`, `IT`, `MX`, `CA`, `AU`, `SA`, `AE`, `TW`).
+An **open-source Model Context Protocol (MCP) Server** and **Python / Node.js SDK** built for **Google Antigravity IDE (`agy`), OpenAI Codex CLI (`codex`), Claude Desktop, Cursor, Windsurf, VS Code Copilot, Smithery.ai, and Glama.ai**, powered by our **35-Endpoint Global Multi-Country TikTok & TikTok Shop Edge Engine** (`22+ Regions`: `US`, `UK`, `VN`, `ID`, `TH`, `BR`, `MY`, `PH`, `SG`, `JP`, `KR`, `DE`, `FR`, `ES`, `IT`, `MX`, `CA`, `AU`, `SA`, `AE`, `TW`).
 
 👉 **[Get Your FREE RapidAPI Key in 10 Seconds — TikTok Data, TikTok Shop & No Watermark Video](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)**
 
@@ -31,7 +31,7 @@ Add your free `RAPIDAPI_KEY` from **[RapidAPI Hub](https://rapidapi.com/Techssss
 
 ---
 
-## ⚡ Quick Setup for Claude Desktop, Cursor & Windsurf
+## ⚡ Quick Setup for Google Antigravity, OpenAI Codex, Claude Desktop, Cursor & Windsurf
 
 ### 1. Clone & Test Locally (Zero External Dependencies — Pure Node.js `>=18`)
 ```bash
@@ -40,7 +40,32 @@ cd tiktok-scraper-api-tiktok-shop-no-watermark
 node test_mcp.js
 ```
 
-### 2. Add to Claude Desktop (`claude_desktop_config.json`) or Cursor (`.cursor/mcp.json`)
+### 2. Google Antigravity IDE (`mcp_config.json`)
+Add to your Antigravity MCP configuration (`~/.gemini/antigravity/mcp_config.json`):
+```json
+{
+  "mcpServers": {
+    "tiktok-shop": {
+      "command": "node",
+      "args": ["/absolute/path/to/tiktok-scraper-api-tiktok-shop-no-watermark/index.js"],
+      "env": {
+        "RAPIDAPI_KEY": "YOUR_FREE_RAPIDAPI_KEY"
+      }
+    }
+  }
+}
+```
+
+### 3. OpenAI Codex CLI (`~/.codex/config.toml`)
+Add to your OpenAI Codex CLI config (`~/.codex/config.toml`):
+```toml
+[mcp_servers.tiktok_shop]
+command = "node"
+args = ["/absolute/path/to/tiktok-scraper-api-tiktok-shop-no-watermark/index.js"]
+env = { RAPIDAPI_KEY = "YOUR_FREE_RAPIDAPI_KEY" }
+```
+
+### 4. Claude Desktop (`claude_desktop_config.json`), Cursor (`.cursor/mcp.json`) & Windsurf
 ```json
 {
   "mcpServers": {
@@ -56,7 +81,7 @@ node test_mcp.js
 ```
 *(Get your free `RAPIDAPI_KEY` at: https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)*
 
-### 3. Example Prompts to Ask Claude / Cursor
+### 5. Example Prompts to Ask Antigravity, Codex, Claude or Cursor
 - *"Decode TikTok video ID `7687152988393147656` to see the exact UTC second it was uploaded and which datacenter shard generated it."*
 - *"Fetch the full video stats, comments, and transcript for `https://www.tiktok.com/@khoahocvavutru0/video/7687152988393147656` and summarize the audience sentiment."*
 - *"Find 5 commercial-cleared TikTok music tracks in the US with their exact StrongBeat timestamps so I can auto-sync my video cuts."*
