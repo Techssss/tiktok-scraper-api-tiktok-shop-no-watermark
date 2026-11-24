@@ -1,12 +1,14 @@
 # TikTok & TikTok Shop MCP Server v2.0 for Google Antigravity, OpenAI Codex, Claude & Cursor (43-Endpoint Global API)
 
 [![RapidAPI](https://img.shields.io/badge/RapidAPI-43%20TikTok%20%26%20TikTok%20Shop%20Endpoints-0055FF?style=for-the-badge&logo=rapidapi)](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)
+[![Apify Store](https://img.shields.io/badge/Apify%20Store-Run%20Cloud%20Actor%20(No%20Limits)-FF4F00?style=for-the-badge&logo=apify)](https://apify.com/nghianguyen2/tiktok-shop-scraper-no-watermark-video-transcript)
 [![MCP Server v2.0](https://img.shields.io/badge/MCP%20v2.0-15%20Annotated%20Tools%20%7C%204%20Prompts-7C3AED?style=for-the-badge)](https://tiktok-scraper-api.minhnghiathcstp.workers.dev/mcp)
 [![Service Level](https://img.shields.io/badge/Service%20Level-100%25%20%7C%209.4%20Popularity-00C853?style=for-the-badge)](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)
+[![TikTok & TikTok Shop Data MCP connector](https://glama.ai/mcp/connectors/io.github.Techssss/tiktok-shop-mcp-server/badges/score.svg)](https://glama.ai/mcp/connectors/io.github.Techssss/tiktok-shop-mcp-server)
 
-An **open-source Model Context Protocol (MCP) Server v2.0** (`stdio` + Remote Streamable HTTP `/mcp`) and **43-Endpoint REST API** built for **Google Antigravity IDE (`agy`), OpenAI Codex CLI (`codex`), Claude Desktop, Cursor, Windsurf, VS Code Copilot, Arcade.dev, Smithery.ai, and Glama.ai**, powered by our **Multi-Region TikTok & TikTok Shop (OEC) Edge Engine** (`22+ Regions`: `US`, `UK`, `VN`, `ID`, `TH`, `BR`, `MY`, `PH`, `SG`, `JP`, `KR`, `DE`, `FR`, `ES`, `IT`, `MX`, `CA`, `AU`, `SA`, `AE`, `TW`).
+An **open-source Model Context Protocol (MCP) Server v2.0** (`stdio` + Remote Streamable HTTP `/mcp` indexed on the **Official MCP Registry** as `io.github.Techssss/tiktok-shop-mcp-server`), **[Apify Store Cloud Actor (v2.1)](https://apify.com/nghianguyen2/tiktok-shop-scraper-no-watermark-video-transcript)**, and **43-Endpoint REST API** built for **Google Antigravity IDE (`agy`), OpenAI Codex CLI (`codex`), Claude Desktop, Cursor, Windsurf, VS Code Copilot, Arcade.dev, Smithery.ai, and Glama.ai**, powered by our **Multi-Region TikTok & TikTok Shop (OEC) Edge Engine** (`22+ Regions`: `US`, `UK`, `VN`, `ID`, `TH`, `BR`, `MY`, `PH`, `SG`, `JP`, `KR`, `DE`, `FR`, `ES`, `IT`, `MX`, `CA`, `AU`, `SA`, `AE`, `TW`).
 
-👉 **[Get Your FREE RapidAPI Key in 10 Seconds — TikTok Data, TikTok Shop & No Watermark Video (43 Endpoints)](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)**
+👉 **[Get Your FREE RapidAPI Key in 10 Seconds (43 REST Endpoints)](https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video)** | ☁️ **[Run Cloud Actor on Apify Store](https://apify.com/nghianguyen2/tiktok-shop-scraper-no-watermark-video-transcript)** | 🎮 **[Live Web Playground](https://techssss.github.io/tiktok-scraper-api-tiktok-shop-no-watermark/)**
 
 ---
 
