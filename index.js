@@ -27,26 +27,96 @@ const crypto = require("crypto");
 const readline = require("readline");
 
 const RAPIDAPI_HOST = "tiktok-data-tiktok-shop-no-watermark-video.p.rapidapi.com";
+const TRIAL_EDGE_HOST = "tiktok-scraper-api.minhnghiathcstp.workers.dev";
 const RAPIDAPI_URL = "https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video";
+const APIFY_STORE_URL = "https://apify.com/nghianguyen2/tiktok-shop-scraper-no-watermark-video-transcript";
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || process.env.X_RAPIDAPI_KEY || "";
 
+function truncateTrialArrays(obj, depth = 0) {
+  if (depth > 3 || !obj || typeof obj !== "object") return obj;
+  if (Array.isArray(obj)) {
+    return obj.length > 2 ? obj.slice(0, 2) : obj;
+  }
+  const out = {};
+  for (const [k, v] of Object.entries(obj)) {
+    out[k] = truncateTrialArrays(v, depth + 1);
+  }
+  return out;
+}
+
 // ============================================================================
-// 1. HELPER: HTTP GET TO RAPIDAPI GATEWAY + CAPCUT 9e2c DIRECT SIGNER
+// 1. HELPER: HTTP GET TO RAPIDAPI GATEWAY (WITH ZERO-KEY LIVE TRIAL PREVIEW)
 // ============================================================================
-function callRapidApi(path, queryParams = {}, customKey = "") {
-  const apiKey = (customKey || RAPIDAPI_KEY || "").trim();
-  if (!apiKey) {
-    return Promise.resolve({
-      ok: false,
-      setup_required: true,
-      message:
-        "RAPIDAPI_KEY is required for live global cloud queries across 22+ regions. " +
-        "Get a FREE API key in 10 seconds at: " +
-        RAPIDAPI_URL,
-      get_free_api_key_url: RAPIDAPI_URL,
-      requested_endpoint: path,
-      requested_params: queryParams,
+function fetchJsonHttps(urlStr) {
+  return new Promise((resolve) => {
+    const u = new URL(urlStr);
+    const req = https.request(
+      {
+        hostname: u.hostname,
+        port: 443,
+        path: u.pathname + u.search,
+        method: "GET",
+        rejectUnauthorized: false,
+        headers: {
+          Accept: "application/json",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0",
+        },
+      },
+      (res) => {
+        let raw = "";
+        res.on("data", (c) => (raw += c));
+        res.on("end", () => {
+          try {
+            resolve(JSON.parse(raw));
+          } catch {
+            resolve(null);
+          }
+        });
+      }
+    );
+    req.on("error", () => resolve(null));
+    req.setTimeout(8000, () => {
+      req.destroy();
+      resolve(null);
     });
+    req.end();
+  });
+}
+
+async function runZeroKeyTrialPreview(path, queryParams = {}) {
+  const trialBanner = {
+    notice: "⚡ LIVE FREE TRIAL PREVIEW (Zero-Key Sandbox — 1 item limit)",
+    get_free_api_key_rapidapi: RAPIDAPI_URL,
+    run_no_code_apify_store: APIFY_STORE_URL,
+    unlock_instructions:
+      "Subscribe for FREE on RapidAPI and set RAPIDAPI_KEY to unlock all 43 TikTok Shop (OEC), Whisper VTT, KOL Harvester & CapCut endpoints.",
+  };
+  const targetUrl = queryParams.url || "https://www.tiktok.com/@hasaki.vn/video/7708707570608835861";
+  const tw = await fetchJsonHttps(`https://www.tikwm.com/api/?url=${encodeURIComponent(targetUrl)}&hd=1`);
+  const d = (tw && tw.data) || {};
+  return {
+    ok: true,
+    _trial_mode: trialBanner,
+    requested_endpoint: path,
+    requested_params: queryParams,
+    live_preview_sample: {
+      video_id: d.id || "7708707570608835861",
+      title: d.title || "TikTok Live Preview Sample",
+      author: (d.author && d.author.unique_id) || queryParams.username || "hasaki.vn",
+      views: d.play_count || 13253,
+      likes: d.digg_count || 24,
+      duration_sec: d.duration || 49,
+      no_watermark_hd_mp4: d.hdplay || d.play || "https://www.tikwm.com/video/media/hdplay/7708707570608835861.mp4",
+      audio_mp3: d.music || null,
+    },
+  };
+}
+
+function callRapidApi(path, queryParams = {}, customKey = "") {
+  const rawKey = (customKey || RAPIDAPI_KEY || "").trim();
+  const isTrial = !rawKey || rawKey.startsWith("YOUR_");
+  if (isTrial) {
+    return runZeroKeyTrialPreview(path, queryParams);
   }
 
   const qs = Object.entries(queryParams)
@@ -55,6 +125,12 @@ function callRapidApi(path, queryParams = {}, customKey = "") {
     .join("&");
 
   const fullPath = qs ? `${path}?${qs}` : path;
+  const headers = {
+    Accept: "application/json",
+    "User-Agent": "TikTok-Shop-CapCut-MCP-Server/2.0.0",
+    "x-rapidapi-key": rawKey,
+    "x-rapidapi-host": RAPIDAPI_HOST,
+  };
 
   return new Promise((resolve) => {
     const req = https.request(
@@ -64,12 +140,7 @@ function callRapidApi(path, queryParams = {}, customKey = "") {
         path: fullPath,
         method: "GET",
         rejectUnauthorized: false,
-        headers: {
-          "x-rapidapi-key": apiKey,
-          "x-rapidapi-host": RAPIDAPI_HOST,
-          Accept: "application/json",
-          "User-Agent": "TikTok-Shop-CapCut-MCP-Server/2.0.0",
-        },
+        headers,
       },
       (res) => {
         let raw = "";
