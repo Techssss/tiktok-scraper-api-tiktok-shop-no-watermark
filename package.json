@@ -1,8 +1,8 @@
 {
   "name": "tiktok-shop-mcp-server",
-  "version": "2.0.0",
-  "mcpName": "io.github.techssss/tiktok-shop-capcut-mcp-server",
-  "description": "Model Context Protocol (MCP) Server v2.0.0 (15 Tools, 40 Endpoints, MCP Behavioral Annotations) for Google Antigravity, OpenAI Codex, Claude Desktop, Cursor & Windsurf: TikTok, TikTok Shop, No-Watermark Video, VQScore Algorithm Audit, Whisper VTT, StrongBeat & CapCut 9e2c Templates across 22+ countries.",
+  "version": "2.1.0",
+  "mcpName": "io.github.techssss/tiktok-shop-mcp-server",
+  "description": "Model Context Protocol (MCP) Server v2.1.0 (15 Annotated Tools) powered by Apify Cloud (jistudio/tiktok-shop-scraper) for Claude Desktop, Cursor, Google Antigravity, OpenAI Codex & Windsurf: TikTok, TikTok Shop, No-Watermark Video, Transcripts & Trends across 22+ countries.",
   "main": "index.js",
   "bin": {
     "tiktok-shop-mcp-server": "./index.js"
@@ -15,28 +15,25 @@
     "mcp",
     "model-context-protocol",
     "mcp-server",
-    "antigravity",
-    "google-antigravity",
-    "codex",
-    "openai-codex",
+    "apify",
+    "apify-actor",
     "tiktok",
     "tiktok-api",
     "tiktok-shop",
     "tiktok-scraper",
-    "capcut",
     "claude-desktop",
     "cursor",
-    "windsurf",
-    "ai-agents",
-    "rapidapi"
+    "antigravity",
+    "codex",
+    "ai-agents"
   ],
-  "author": "Techssss",
+  "author": "JiStudio",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Techssss/tiktok-scraper-api-tiktok-shop-no-watermark.git"
   },
-  "homepage": "https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video",
+  "homepage": "https://apify.com/jistudio/tiktok-shop-scraper",
   "engines": {
     "node": ">=18.0.0"
   }

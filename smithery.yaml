@@ -6,9 +6,9 @@ startCommand:
     type: object
     required: []
     properties:
-      rapidapiKey:
+      apifyToken:
         type: string
-        description: "Your RapidAPI Key for TikTok Data, TikTok Shop & No Watermark Video (Get a FREE key at https://rapidapi.com/Techssss/api/tiktok-data-tiktok-shop-no-watermark-video). Leave blank to use the 3 free offline tools."
+        description: "Your Apify API Token (Get a free token at https://console.apify.com/account/integrations to run https://apify.com/jistudio/tiktok-shop-scraper). Leave blank to use the 3 free offline tools."
         default: ""
   commandFunction:
     |-
@@ -16,6 +16,6 @@ startCommand:
       command: 'node',
       args: ['index.js'],
       env: {
-        RAPIDAPI_KEY: config.rapidapiKey || ''
+        APIFY_TOKEN: config.apifyToken || ''
       }
     })

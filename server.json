@@ -1,10 +1,10 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Techssss/tiktok-shop-mcp-server",
-  "title": "TikTok & TikTok Shop Data MCP Server",
-  "description": "Public TikTok & TikTok Shop (OEC) data across 22+ countries: videos, VTT transcripts, SKUs & VQScore",
-  "version": "2.0.0",
-  "websiteUrl": "https://techssss.github.io/tiktok-scraper-api-tiktok-shop-no-watermark/",
+  "title": "TikTok & TikTok Shop Data MCP Server (Apify Cloud)",
+  "description": "Public TikTok & TikTok Shop data across 22+ countries: videos, VTT transcripts, SKUs & trends via Apify Cloud (jistudio/tiktok-shop-scraper)",
+  "version": "2.1.0",
+  "websiteUrl": "https://apify.com/jistudio/tiktok-shop-scraper",
   "repository": {
     "url": "https://github.com/Techssss/tiktok-scraper-api-tiktok-shop-no-watermark",
     "source": "github"
@@ -12,12 +12,12 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://tiktok-scraper-api.minhnghiathcstp.workers.dev/mcp",
+      "url": "https://mcp.apify.com/?actors=jistudio/tiktok-shop-scraper",
       "headers": [
         {
-          "name": "X-RapidAPI-Key",
-          "description": "Optional Free RapidAPI Key (3 tools run 100% free without a key)",
-          "isRequired": false,
+          "name": "Authorization",
+          "description": "Bearer <APIFY_TOKEN> from https://console.apify.com/account/integrations",
+          "isRequired": true,
           "isSecret": true
         }
       ]
